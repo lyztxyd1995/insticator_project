@@ -7,20 +7,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e8948cd6-ae35-43c2-9f98-c1259b458ba4" name="Default" comment="">
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/insticator/controller/AdminController.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/insticator/dao/AdministratorDao.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/insticator/entity/Administrator.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/insticator/service/AdminService.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/insticator/service/impl/AdminServiceImpl.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/resources/mapper/AdministratorDao.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/html/adminLogin.html" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/html/manageQuestions.html" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/resources/css/adminLogin.css" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/resources/js/adminLogin.js" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/resources/js/jquery.js" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/test/java/com/insticator/dao/AdministratorTest.java" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -739,7 +726,7 @@
       <workItem from="1541001672673" duration="8676000" />
       <workItem from="1541022567469" duration="13263000" />
       <workItem from="1541038162162" duration="6872000" />
-      <workItem from="1541097041028" duration="4130000" />
+      <workItem from="1541097041028" duration="4142000" />
     </task>
     <task id="LOCAL-00001" summary="add new changes">
       <created>1541095400603</created>
@@ -748,7 +735,14 @@
       <option name="project" value="LOCAL" />
       <updated>1541095400603</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="add new changes">
+      <created>1541101279361</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1541101279361</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -784,7 +778,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="41650000" />
+    <option name="totallyTimeSpent" value="41662000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1216,6 +1210,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="229">
           <caret line="22" column="5" lean-forward="true" selection-start-line="21" selection-start-column="19" selection-end-line="22" selection-end-column="5" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1223,6 +1220,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="150">
           <caret line="10" column="0" lean-forward="true" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
