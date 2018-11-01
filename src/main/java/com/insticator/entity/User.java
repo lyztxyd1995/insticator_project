@@ -3,7 +3,7 @@ package com.insticator.entity;
 public class User {
     private String username;
     private String password;
-    private int points;
+    private Integer points;
 
     public User(String username, String password) {
         this.username = username;
@@ -34,11 +34,11 @@ public class User {
                 '}';
     }
 
-    public int getPoints() {
+    public Integer getPoints() {
         return points;
     }
 
-    public void setPoints(int points) {
+    public void setPoints(Integer points) {
         this.points = points;
     }
 }

@@ -13,7 +13,7 @@
         <property name="password" value="${jdbc.password}"></property>
 
         <!--c3p0-->
-        <property name="maxPoolSize" value="40"></property>
+        <property name="maxPoolSize" value="50"></property>
         <property name="minPoolSize" value="20"></property>
         <property name="autoCommitOnClose" value="false"></property>
         <property name="checkoutTimeout" value="10000"></property>

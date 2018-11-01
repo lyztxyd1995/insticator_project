@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.insticator.dao.MatricItemDefaultChoiceDao">
+    <insert id="insert">
+        INSERT INTO
+        matric_item_default_choice
+        (matric_item_id, content)
+        VALUES
+        (#{matricItemId}, #{content})
+    </insert>
+
+    <delete id="deleteByMatricId" parameterType="int">
+        DELETE FROM
+        matric_item_default_choice
+        WHERE
+        matric_item_id = #{matricItemId}
+    </delete>
+
+    <select id="selectByMatricItemId" resultType="string">
+        SELECT content FROM
+        matric_item_default_choice
+        WHERE
+        matric_item_id = #{matricItemId}
+    </select>
+
+    <update id="updateContent">
+        UPDATE
+        matric_item_default_choice
+        SET
+        content = #{content}
+        WHERE
+        matric_item_id = #{matricItemId}
+    </update>
+
+</mapper>

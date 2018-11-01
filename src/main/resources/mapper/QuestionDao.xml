@@ -9,7 +9,7 @@
         <result property="content" column="content"/>
     </resultMap>
 
-    <insert id="insert" parameterType="com.insticator.entity.Question">
+    <insert id="insert" parameterType="com.insticator.entity.Question" useGeneratedKeys="true" keyProperty="questionId">
         INSERT INTO
         questions
         (question_id, question_type, content)
@@ -18,4 +18,42 @@
         #{questionType, typeHandler=com.insticator.util.QuestionTypeHandler},
         #{content})
     </insert>
+
+    <delete id="delete" parameterType="int">
+        DELETE FROM
+        questions
+        WHERE
+        question_id = #{questionId}
+    </delete>
+
+    <select id="selectAll" resultMap="result">
+        SELECT * FROM
+        questions
+    </select>
+
+    <select id="selectById" resultMap="result">
+        SELECT * FROM
+        questions
+        WHERE
+        question_id = #{questionId}
+    </select>
+
+    <update id="updateContent">
+        UPDATE
+        questions
+        SET content = #{content}
+        WHERE
+        question_id = #{questionId}
+    </update>
+
+    <select id="selectFromIdx" resultMap="result">
+        SELECT * FROM
+        questions
+        LIMIT #{from}, #{num}
+    </select>
+
+    <select id="count" resultType="int">
+        SELECT COUNT(*) FROM questions;
+    </select>
+
 </mapper>

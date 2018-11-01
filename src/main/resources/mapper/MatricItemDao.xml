@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.insticator.dao.MatricItemDao">
+    <resultMap id="result" type="com.insticator.entity.MatricItem">
+        <id property="itemId" column="item_id"></id>
+        <result property="itemName" column="item_name"/>
+        <result property="questionId" column="question_id"/>
+    </resultMap>
+
+    <insert id="insert" parameterType="com.insticator.entity.MatricItem" useGeneratedKeys="true" keyProperty="itemId">
+        INSERT INTO
+        matric_item
+        (item_name, question_id)
+        VALUES
+        (#{itemName},#{questionId})
+    </insert>
+
+    <delete id="delete" parameterType="int">
+        DELETE FROM
+        matric_item
+        WHERE
+        item_id = #{itemId}
+    </delete>
+
+    <delete id="deleteByQuestionId" parameterType="int">
+        DELETE FROM
+        matric_item
+        WHERE
+        question_id = #{questionId}
+    </delete>
+
+    <select id="selectByQuestionId" resultMap="result">
+        SELECT * FROM
+        matric_item
+        WHERE
+        question_id = #{questionId}
+    </select>
+
+    <update id="updateName">
+        UPDATE
+        matric_item
+        SET
+        item_name = #{itemName}
+        WHERE
+        item_id = #{itemId}
+    </update>
+</mapper>

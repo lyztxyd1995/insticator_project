@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.insticator.dao.ChoiceDao">
+    <insert id="insert" parameterType="com.insticator.entity.Choice" useGeneratedKeys="true" keyProperty="choiceId">
+        INSERT INTO
+        choice
+        (question_id, content, is_answer)
+        VALUES
+        (#{questionId}, #{content}, #{isAnswer})
+    </insert>
+
+    <insert id="batchInsert" parameterType="java.util.List">
+        INSERT IGNORE INTO
+        choice
+        (question_id, content, is_answer)
+        VALUES
+        <foreach collection="list" item="item" index="index" separator=",">
+            (#{item.questionId}, #{item.content}, #{item.isAnswer})
+        </foreach>
+    </insert>
+
+    <delete id="delete" parameterType="int">
+        DELETE FROM
+        choice
+        WHERE
+        choice_id = #{choiceId}
+    </delete>
+
+    <delete id="deleteByQuestionId" parameterType="int">
+        DELETE FROM
+        choice
+        WHERE
+        question_id = #{quetionId}
+    </delete>
+
+    <select id="selectByQuetionId" resultType="com.insticator.entity.Choice">
+        SELECT * FROM
+        choice
+        WHERE
+        question_id = #{questionId}
+    </select>
+
+    <update id="updateContent">
+        UPDATE
+        choice
+        SET
+        content = #{content}
+        WHERE
+        choice_id = #{choiceId}
+    </update>
+
+
+    <update id="updateAnswer">
+        UPDATE
+        choice
+        SET
+        is_answer = #{isAnswer}
+        WHERE
+        choice_id = #{choiceId}
+    </update>
+</mapper>
