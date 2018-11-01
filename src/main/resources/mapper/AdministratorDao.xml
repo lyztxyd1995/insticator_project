@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.insticator.dao.AdministratorDao">
+    <insert id="insert" parameterType="com.insticator.entity.Administrator">
+        INSERT INTO
+        administrator
+        (username, password)
+        VALUES
+        (#{username}, #{password})
+    </insert>
+
+    <delete id="delete" parameterType="string">
+        DELETE FROM
+        administrator
+        WHERE
+        username = #{username}
+    </delete>
+
+    <select id="select" resultType="com.insticator.entity.Administrator">
+        SELECT * FROM
+        administrator
+        WHERE
+        username = #{username}
+    </select>
+
+</mapper>
