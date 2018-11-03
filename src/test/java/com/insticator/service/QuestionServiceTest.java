@@ -19,8 +19,8 @@ public class QuestionServiceTest extends BaseTest {
 
     @Test
     public void testaddQuestion(){
-        Choice choice1 = new Choice("choice one", false);
-        Choice choice2 = new Choice("choice two", true);
+        Choice choice1 = new Choice();
+        Choice choice2 = new Choice();
         List<Choice>choiceList = new ArrayList<>();
         choiceList.add(choice1);
         choiceList.add(choice2);
@@ -56,7 +56,7 @@ public class QuestionServiceTest extends BaseTest {
     @Test
     public void testAddChoice(){
         Question question = questionService.selectById(32);
-        Choice choice = new Choice("choice A", true);
+        Choice choice = new Choice();
         boolean res = questionService.addChoice(choice,question);
         assertEquals(res, true);
     }
@@ -64,8 +64,8 @@ public class QuestionServiceTest extends BaseTest {
     @Test
     public void testAddChoices(){
         Question question = questionService.selectById(33);
-        Choice choice = new Choice("choice A", true);
-        Choice choice1 = new Choice("B", false);
+        Choice choice = new Choice();
+        Choice choice1 = new Choice();
         List<Choice> choiceList = new ArrayList<>();
         choiceList.add(choice);
         choiceList.add(choice1);
@@ -92,6 +92,12 @@ public class QuestionServiceTest extends BaseTest {
     @Test
     public void testSelectByPage(){
         List<Question>res = questionService.selectByPage(3,1);
+        System.out.println(res);
+    }
+
+    @Test
+    public void testSelectByType(){
+        List<Question>res = questionService.selectByType(QuestionType.Trivial);
         System.out.println(res);
     }
 

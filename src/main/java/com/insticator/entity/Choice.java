@@ -6,20 +6,6 @@ public class Choice {
     private String content;
     private boolean isAnswer;
 
-    public Choice(String content, boolean isAnswer) {
-        this.content = content;
-        this.isAnswer = isAnswer;
-    }
-    public Choice(Integer questionId, String content){
-        this.questionId = questionId;
-        this.content = content;
-        this.isAnswer = false;
-    }
-    public Choice(Integer questionId, String content, boolean isAnswer) {
-        this(questionId,content);
-        this.isAnswer = isAnswer;
-    }
-
     public Integer getChoiceId() {
         return choiceId;
     }

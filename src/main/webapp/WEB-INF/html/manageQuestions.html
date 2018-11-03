@@ -2,9 +2,70 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Manage Questions</title>
+    <title>Questions Management</title>
+    <script type="text/javascript" src="../resources/js/jquery.js"></script>
+    <script type="text/javascript" src="../resources/js/manageQuestions.js"></script>
+    <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="../resources/css/manageQuestions.css">
+    <style>
+        .right_answer{
+            color: brown;
+        }
+    </style>
 </head>
 <body>
-    <h1>Hello World</h1>
+    <h1>Questions Management</h1>
+    <header>
+        <div class="container">
+            <h3>list all questions with certain type</h3>
+                <ul class="nav nav-tabs">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#" id="trivia_btn">trivia</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" id="poll_btn">poll</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" id="checkbox_btn">checkbox</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" id="matric_btn">matric</a>
+                    </li>
+                </ul>
+        </div>
+    </header>
+    <section class="main">
+        <div class="container">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Question Title</th>
+                    <th>Question Type</th>
+                    <th>Choices</th>
+                    <th>Edit</th>
+                    <th>Delelte</th>
+                </tr>
+                </thead>
+                <tbody id="table_body">
+                    <tr>
+                        <td>Question Title</td>
+                        <td>Question Type</td>
+                        <td>Choice</td>
+                        <td><a href="#">Edit</a></td>
+                        <td><a href="#">Delete</a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+    <section class="page">
+        <div class="container">
+            <div>
+                <a href="/addQuestion"><button>add new question</button></a>
+            </div>
+        </div>
+    </section>
 </body>
 </html>

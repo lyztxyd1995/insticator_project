@@ -56,4 +56,11 @@
         SELECT COUNT(*) FROM questions;
     </select>
 
+    <select id="selectByType" resultMap="result">
+        SELECT * FROM
+        questions
+        WHERE
+        question_type = #{type}
+    </select>
+
 </mapper>

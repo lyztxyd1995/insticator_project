@@ -48,4 +48,20 @@ public class AdminController {
             return modelMap;
         }
     }
+
+    @RequestMapping(value = "getAdmin", method = RequestMethod.GET)
+    @ResponseBody
+    private Map<String,Object> getAdmin(HttpServletRequest request) {
+        Map<String,Object>modelMap = new HashMap<>();
+        Administrator admin = (Administrator) request.getSession().getAttribute("Admin");
+        if(admin != null){
+            modelMap.put("success",true);
+            modelMap.put("Admin",admin);
+            return modelMap;
+        } else {
+            modelMap.put("success",false);
+            modelMap.put("errMsg","could not load the administrator's information");
+        }
+        return modelMap;
+    }
 }

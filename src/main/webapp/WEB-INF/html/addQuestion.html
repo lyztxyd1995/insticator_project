@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <head>
+        <meta charset="UTF-8">
+        <title>Questions Management</title>
+        <script type="text/javascript" src="../resources/js/jquery.js"></script>
+        <script type="text/javascript" src="../resources/js/addQuestion.js"></script>
+        <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+        <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+        <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    </head>
+    <style>
+        .choice_item{
+            margin: 10px;
+        }
+        .choice_item_input{
+            width: 50%;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="jumbotron">
+        <h1>Hello,admin!</h1>
+        <p>Add a new question here</p>
+    </div>
+    <div class="page-header">
+        <h3><small>Add</small></h3>
+    </div>
+    <form>
+        <div class="form-group">
+            <label for="content">Question Content</label>
+            <input type="text" class="form-control" id="content">
+        </div>
+        <div class="form-group">
+            <label for="type">Question Type</label>
+            <select class="form-control" id="type">
+                <option>trivia</option>
+                <option>poll</option>
+                <option>checkbox</option>
+                <option>matric</option>
+            </select>
+        </div>
+        <div id="question_items">
+            <div class="form-group">
+                <label for="matric_item1">Matric Item one (with default items)</label>
+                <input type="text" class="form-control" id="matric_item1">
+                <div class="form-group">
+                    <button type="button" class="btn btn-success" id="first_item_add">Add default items</button>
+                    <button type="button" class="btn btn-danger" id="first_item_remove">remove default items</button>
+                </div>
+                <ul id="matric_item1_ul">
+                    <li>
+                        <label for="first_item1">Item A</label>
+                        <input type="text" class="form-control" id="first_item1">
+                    </li>
+                    <li>
+                        <label for="first_item2">Item B</label>
+                        <input type="text" class="form-control" id="first_item2">
+                    </li>
+                </ul>
+            </div>
+            <div class="form-group">
+                <label for="matric_item2">Matric Item two (with default choices)</label>
+                <input type="text" class="form-control" id="matric_item2">
+                <div class="form-group">
+                    <button type="button" class="btn btn-success" id="second_item_add">Add default choices</button>
+                    <button type="button" class="btn btn-danger" id="second_item_remove">remove default choices</button>
+                </div>
+                <ul id="matric_item2_ul">
+                    <li>
+                        <label for="second_item1">Item A</label>
+                        <input type="text" class="form-control" id="second_item1">
+                    </li>
+                    <li>
+                        <label for="second_item2">Item B</label>
+                        <input type="text" class="form-control" id="second_item2">
+                    </li>
+                </ul>
+            </div>
+            <div class="form-group">
+                <label for="matric_item3">Matric Item three (No default choices, let users fill in)</label>
+                <input type="text" class="form-control" id="matric_item3">
+            </div>
+        </div>
+        <div class="form-group">
+            <button type="button" class="btn btn-primary" id="save_btn">Save</button>
+        </div>
+    </form>
+</div>
+</body>
+</html>

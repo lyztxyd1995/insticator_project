@@ -79,14 +79,12 @@ public class QuestionServiceImpl implements QuestionService {
     @Transactional
     public boolean deleteQuestion(int questionId) {
         Question question = questionDao.selectById(questionId);
-        System.out.println(question);
         if (question == null) {
             return false;
         }
         try {
             if (question.getQuestionType() == QuestionType.Matric) {
                 List<MatricItem>matricItemList = matricItemDao.selectByQuestionId(question.getQuestionId());
-                System.out.println(matricItemList);
                 matricItemDao.deleteByQuestionId(questionId);
                 for (MatricItem matricItem : matricItemList) {
                     matricItemDefaultChoiceDao.deleteByMatricId(matricItem.getItemId());
@@ -113,10 +111,33 @@ public class QuestionServiceImpl implements QuestionService {
     }
 
     @Override
-    @Transactional
     public List<Question> selectAll() {
         List<Question>res = questionDao.selectAll();
-        for (Question question : res) {
+        addAttribute(res);
+        return res;
+    }
+
+    @Override
+    public List<Question> selectByPage(int pageNum, int pageSize) {
+        int total = questionDao.count();
+        int startIdx = (pageNum - 1) * pageSize;
+        if (startIdx >= total) {
+            return null;
+        }
+        List<Question>res = questionDao.selectFromIdx(startIdx, pageSize);
+        addAttribute(res);
+        return res;
+    }
+
+    @Override
+    public List<Question> selectByType(QuestionType questionType) {
+        List<Question>res = questionDao.selectByType(questionType.getId());
+        addAttribute(res);
+        return res;
+    }
+
+    private void addAttribute(List<Question>questions) {
+        for (Question question : questions) {
             if (question.getQuestionType() == QuestionType.Matric) {
                 List<MatricItem>matricItems = matricItemDao.selectByQuestionId(question.getQuestionId());
                 for (MatricItem matricItem : matricItems) {
@@ -129,17 +150,6 @@ public class QuestionServiceImpl implements QuestionService {
                 question.setChoices(choiceList);
             }
         }
-        return res;
-    }
-
-    @Override
-    public List<Question> selectByPage(int pageNum, int pageSize) {
-        int total = questionDao.count();
-        int startIdx = (pageNum - 1) * pageSize;
-        if (startIdx >= total) {
-            return null;
-        }
-        return questionDao.selectFromIdx(startIdx, pageSize);
     }
 
     @Override

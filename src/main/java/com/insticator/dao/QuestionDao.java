@@ -13,4 +13,5 @@ public interface QuestionDao {
      int count();
      Question selectById(@Param("questionId") int questionId);
      int updateContent(@Param("questionId") int questionId, @Param("content")String content);
+     List<Question> selectByType(@Param("type")int type);
 }

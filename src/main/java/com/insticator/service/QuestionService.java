@@ -15,6 +15,7 @@ public interface QuestionService {
     Question selectById(int id);
     List<Question>selectAll();
     List<Question>selectByPage(int pageNum, int pageSize);
+    List<Question>selectByType(QuestionType questionType);
     boolean addChoice(Choice choice, Question question);
     boolean addMatricItem(MatricItem matricItem, Question question);
     boolean addChoices(List<Choice>choiceList, Question question);

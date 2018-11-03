@@ -19,16 +19,16 @@ public class ChoiceDaoTest extends BaseTest {
     QuestionDao questionDao;
     @Test
     public void testInsert(){
-        Choice choice = new Choice(4, "first choice");
-        Choice choice1 = new Choice(4, "second choice", true);
+        Choice choice = new Choice();
+        Choice choice1 = new Choice();
         choiceDao.insert(choice);
         choiceDao.insert(choice1);
     }
 
     @Test
     public void testBatchInsert(){
-        Choice choice = new Choice(4, "third choice");
-        Choice choice1 = new Choice(4, "fourth choice", true);
+        Choice choice = new Choice();
+        Choice choice1 = new Choice();
         List<Choice>choices = new ArrayList<>();
         choices.add(choice);
         choices.add(choice1);
@@ -47,7 +47,7 @@ public class ChoiceDaoTest extends BaseTest {
 
     @Test
     public void testUpdate(){
-        Choice choice = new Choice(4, "test choice");
+        Choice choice = new Choice();
         choiceDao.insert(choice);
         choiceDao.updateContent(choice.getChoiceId(), "new content");
         choiceDao.updateAnswer(choice.getChoiceId(), true);
