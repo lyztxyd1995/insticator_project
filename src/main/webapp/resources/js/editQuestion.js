@@ -6,7 +6,7 @@ $(function(){
     var firstItemNum = 0;
     var secondItemNum = 0;
     function getQuestion() {
-        var url = '/getQuestion';
+        var url = '/insticator/getQuestion';
         $.ajax({
             url:url,
             type:"GET",
@@ -27,7 +27,7 @@ $(function(){
                     }
                 } else {
                     alert(data.errMsg);
-                    window.location.href = '/manageQuestions';
+                    window.location.href = '/insticator/manageQuestions';
                 }
             }
         })
@@ -174,7 +174,7 @@ $(function(){
     })
 
     $(document).on("click", "#back_btn", function(){
-        window.location.href = '/manageQuestions';
+        window.location.href = '/insticator/manageQuestions';
     })
 
     $(document).on("click", '#save_btn', function(){
@@ -212,14 +212,14 @@ $(function(){
         data.questionType = curType;
         $.ajax({
             type:"POST",
-            url: "/handleEditQuetion",
+            url: "/insticator/handleEditQuetion",
             data: JSON.stringify(data),
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function(data) {
                 if (data.success) {
                     alert("finish editing");
-                    window.location.href = '/manageQuestions';
+                    window.location.href = '/insticator/manageQuestions';
                 } else {
                     alert(data.errMsg);
                 }
@@ -284,14 +284,14 @@ $(function(){
         console.log(data);
         $.ajax({
             type:"POST",
-            url: "/handleEditQuetion",
+            url: "/insticator/handleEditQuetion",
             data: JSON.stringify(data),
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function(data) {
                 if (data.success) {
                     alert("finish editing");
-                    window.location.href = '/manageQuestions';
+                    window.location.href = '/insticator/manageQuestions';
                 } else {
                     alert("error");
                     alert(data.errMsg);

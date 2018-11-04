@@ -1,14 +1,14 @@
 $(function(){
     var CHARACTER = ['A','B','C','D','E','F','G','H','I','J']
     function getAdmin() {
-        var url = '/getAdmin';
+        var url = '/insticator/getAdmin';
         $.ajax({
             url:url,
             type:"get",
             success:function(data){
                 if(!data.success){
                     alert("No administrator info");
-                    window.location.href = '/admin';
+                    window.location.href = '/insticator/admin';
                 }
             }
         })
@@ -37,13 +37,14 @@ $(function(){
                 data.questionId = questionId;
                 $.ajax({
                     type:"POST",
-                    url: "/deleteQuestion",
+                    url: "/insticator/deleteQuestion",
                     data: JSON.stringify(data),
                     contentType: "application/json; charset=utf-8",
                     dataType: "json",
                     success: function(data) {
                         if (data.success) {
                             alert("successfully remove the question");
+                            window.location.href = '/insticator/manageQuestions';
                         } else {
                             alert(data.errMsg);
                         }
@@ -55,12 +56,12 @@ $(function(){
     $(document).on("click", ".edit", function(){
         var questionId = $(this).attr('questionId');
         $.ajax({
-            url:"/editQuestion?questionId=" + questionId,
+            url:"/insticator/editQuestion?questionId=" + questionId,
             type:"GET",
             dataType:"json",
             success: function(data){
                 if (data.success) {
-                    window.location.href='/toEditQuestion';
+                    window.location.href='/insticator/toEditQuestion';
                 } else {
                     alert(data.errMsg);
                 }
@@ -71,7 +72,7 @@ $(function(){
         var rows = $('#table_body');
         rows.html('');
         $.ajax({
-            url:"/getQuestionByType?type=trivia",
+            url:"/insticator/getQuestionByType?type=trivia",
             type:"get",
             dataType:"json",
             success: function (data) {
@@ -108,7 +109,7 @@ $(function(){
         var rows = $('#table_body');
         rows.html('');
         $.ajax({
-            url:"/getQuestionByType?type=poll",
+            url:"/insticator/getQuestionByType?type=poll",
             type:"get",
             dataType:"json",
             success: function (data) {
@@ -145,7 +146,7 @@ $(function(){
         var rows = $('#table_body');
         rows.html('');
         $.ajax({
-            url:"/getQuestionByType?type=checkbox",
+            url:"/insticator/getQuestionByType?type=checkbox",
             type:"get",
             dataType:"json",
             success: function (data) {
@@ -183,7 +184,7 @@ $(function(){
         var rows = $('#table_body');
         rows.html('');
         $.ajax({
-            url:"/getQuestionByType?type=matric",
+            url:"/insticator/getQuestionByType?type=matric",
             type:"get",
             dataType:"json",
             success: function (data) {

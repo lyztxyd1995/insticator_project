@@ -1,13 +1,13 @@
 $(function(){
     function getAdmin() {
-        var url = '/getAdmin';
+        var url = '/insticator/getAdmin';
         $.ajax({
             url:url,
             type:"get",
             success:function(data){
                 if(!data.success){
                     alert("No administrator info");
-                    window.location.href = '/admin';
+                    window.location.href = '/insticator/admin';
                 }
             }
         })
@@ -128,14 +128,14 @@ $(function(){
         data.questionType = curType;
         $.ajax({
             type:"POST",
-            url: "/handleAddQuestion",
+            url: "/insticator/handleAddQuestion",
             data: JSON.stringify(data),
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function(data) {
                 if (data.success) {
                     alert("Add a new question successfully");
-                    window.location.href = '/manageQuestions';
+                    window.location.href = '/insticator/manageQuestions';
                 } else {
                     alert(data.errMsg);
                 }
@@ -199,14 +199,14 @@ $(function(){
         console.log(data);
         $.ajax({
             type:"POST",
-            url: "/handleAddQuestion",
+            url: "/insticator/handleAddQuestion",
             data: JSON.stringify(data),
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function(data) {
                 if (data.success) {
                     alert("Add a new question successfully");
-                    window.location.href = '/manageQuestions';
+                    window.location.href = '/insticator/manageQuestions';
                 } else {
                     alert(data.errMsg);
                 }

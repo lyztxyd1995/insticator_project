@@ -6,7 +6,7 @@ $(function(){
         data.password1 = $('#password1').val();
 
         $.ajax({
-            url:'/handleUserRegister',
+            url:'/insticator/handleUserRegister',
             type:'POST',
             data: JSON.stringify(data),
             contentType: "application/json; charset=utf-8",
@@ -14,7 +14,7 @@ $(function(){
             success: function(data) {
                 if (data.success) {
                     alert("finish creating account");
-                    window.location.href = '/userLogin';
+                    window.location.href = '/insticator/userLogin';
                 } else {
                     alert(data.errMsg);
                 }

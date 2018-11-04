@@ -1,14 +1,14 @@
 $(function(){
     var user = {}
     function getUser() {
-        var url = '/getUser';
+        var url = '/insticator/getUser';
         $.ajax({
             url:url,
             type:"get",
             success:function(data){
                 if(!data.success){
                     alert("No user information");
-                    window.location.href = '/userLogin';
+                    window.location.href = '/insticator/userLogin';
                 } else {
                     $('#user').html('Hello, ' + data.user.username);
                     $('#point').html('Your current point is: ' + data.user.points);
@@ -21,7 +21,7 @@ $(function(){
     var type = ''
     var matricInputCount = 0;
     function getQuestion(){
-        var url = '/getUserQuestion';
+        var url = '/insticator/getUserQuestion';
         $.ajax({
             url:url,
             type:"GET",
@@ -156,7 +156,7 @@ $(function(){
         data.points = user.points;
         $.ajax({
             type:"POST",
-            url: "/userAddPoints",
+            url: "/insticator/userAddPoints",
             data: JSON.stringify(data),
             contentType: "application/json; charset=utf-8",
             dataType: "json",
@@ -176,7 +176,7 @@ $(function(){
         data.username = user.username;
         $.ajax({
             type:"POST",
-            url: "/userAddRecord",
+            url: "/insticator/userAddRecord",
             data: JSON.stringify(data),
             contentType: "application/json; charset=utf-8",
             dataType: "json",
@@ -191,14 +191,14 @@ $(function(){
     }
 
     function updateUser(){
-        var url = '/updateUser?username=' + user.username;
+        var url = '/insticator/updateUser?username=' + user.username;
         $.ajax({
             url:url,
             type:"get",
             success:function(data){
                 if(!data.success){
                     alert("No user information");
-                    window.location.href = '/userLogin';
+                    window.location.href = '/insticator/userLogin';
                 } else {
                     getQuestion();
                     $('#user').html('Hello, ' + data.user.username);
