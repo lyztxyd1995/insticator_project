@@ -20,4 +20,5 @@ public interface QuestionService {
     boolean addMatricItem(MatricItem matricItem, Question question);
     boolean addChoices(List<Choice>choiceList, Question question);
     boolean addMatricItems(List<MatricItem>matricItemList, Question question);
+    void updateQuetion(Question question);
 }

@@ -34,9 +34,11 @@ public class QuestionServiceImpl implements QuestionService {
             return false;
         }
         try {
+            System.out.println("start adding a question");
             Question question = new Question();
             question.setQuestionType(questionType);
             question.setContent(content);
+            System.out.println(question);
             questionDao.insert(question);
             if (choiceList != null && choiceList.size() > 0) {
                 for (Choice choice : choiceList) {
@@ -107,7 +109,22 @@ public class QuestionServiceImpl implements QuestionService {
 
     @Override
     public Question selectById(int id) {
-        return questionDao.selectById(id);
+        Question question = questionDao.selectById(id);
+        if (question == null) {
+            return null;
+        }
+        if (question.getQuestionType() == QuestionType.Matric) {
+            List<MatricItem>matricItems = matricItemDao.selectByQuestionId(question.getQuestionId());
+            for (MatricItem matricItem : matricItems) {
+                List<String>list = matricItemDefaultChoiceDao.selectByMatricItemId(matricItem.getItemId());
+                matricItem.setDefaultChoices(list);
+            }
+            question.setMatricItems(matricItems);
+        } else {
+            List<Choice>choiceList = choiceDao.selectByQuetionId(question.getQuestionId());
+            question.setChoices(choiceList);
+        }
+        return question;
     }
 
     @Override
@@ -227,6 +244,25 @@ public class QuestionServiceImpl implements QuestionService {
         return true;
     }
 
+    @Override
+    @Transactional
+    public void updateQuetion(Question question) {
+        try {
+            deleteQuestion(question.getQuestionId());
+            System.out.println("finish deleting");
+            if (question.getQuestionType() == QuestionType.Matric){
+                addMatric(question.getContent(), question.getMatricItems());
+            } else {
+                System.out.println("start adding a new question");
+                System.out.println(question);
+                addQuestion(question.getQuestionType(), question.getContent(), question.getChoices());
+                System.out.println("finish adding a new question");
+            }
+        } catch (Exception e){
+            throw new RuntimeException(e.getMessage());
+        }
+    }
+
     private boolean validQuestion(Question question) {
         if (question == null) {
             return false;
@@ -240,5 +276,7 @@ public class QuestionServiceImpl implements QuestionService {
         }
         return true;
     }
+
+
 
 }

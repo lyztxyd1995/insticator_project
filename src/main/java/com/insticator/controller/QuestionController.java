@@ -71,16 +71,21 @@ public class QuestionController {
         return modelMap;
     }
 
-    @RequestMapping(value="/deleteQuestion",method = RequestMethod.GET)
-    private String deleteQuestion(HttpServletRequest request) {
-        System.out.println("enter delete");
-        if (request.getSession().getAttribute("Admin") == null){
-            return "manageQuestions";
+    @RequestMapping(value="/deleteQuestion",method = RequestMethod.POST)
+    @ResponseBody
+    private Map<String,Object> deleteQuestion(@RequestBody String param, HttpServletRequest request) {
+        Map<String,Object>modelMap = new HashMap<>();
+        JSONObject obj = new JSONObject(param);
+        String questionId = obj.getString("questionId");
+        try {
+            questionService.deleteQuestion(Integer.parseInt(questionId));
+        } catch (Exception e) {
+            modelMap.put("success", false);
+            modelMap.put("errMsg", e.getMessage());
+            return modelMap;
         }
-        Integer questionId = Integer.parseInt(request.getParameter("id"));
-        questionService.deleteQuestion(questionId);
-        System.out.println("delete successfully");
-        return "manageQuestions";
+        modelMap.put("success", true);
+        return modelMap;
     }
 
     @RequestMapping(value = "/addQuestion", method = RequestMethod.GET)
@@ -204,12 +209,179 @@ public class QuestionController {
                 matricItem.setDefaultChoices(defaultChoices);
                 matricItemList.add(matricItem);
             }
-            System.out.println("finish matricItemList");
-            System.out.println(matricItemList);
-            System.out.println(content);
-            System.out.println("addm matric");
             questionService.addMatric(content,matricItemList);
         } catch (Exception e) {
+            modelMap.put("success", false);
+            modelMap.put("errMsg", e.getMessage());
+            return modelMap;
+        }
+        modelMap.put("success", true);
+        return modelMap;
+    }
+
+
+    @RequestMapping(value = "/editQuestion", method = RequestMethod.GET)
+    @ResponseBody
+    private Map<String,Object> editQuestion (HttpServletRequest request) {
+        Map<String,Object> modelMap = new HashMap<>();
+        try {
+            Integer questionId = Integer.parseInt(request.getParameter("questionId"));
+            Question question = questionService.selectById(questionId);
+            request.getSession().setAttribute("question",question);
+        } catch (Exception e) {
+            modelMap.put("success", false);
+            modelMap.put("errMsg", e.getMessage());
+            return modelMap;
+        }
+        modelMap.put("success",true);
+        return modelMap;
+    }
+
+    @RequestMapping(value = "/toEditQuestion", method = RequestMethod.GET)
+    private String toEditQuestion(){
+        return "editQuestion";
+    }
+
+
+    @RequestMapping(value = "/getQuestion", method = RequestMethod.GET)
+    @ResponseBody
+    private Map<String,Object> getQuestion(HttpServletRequest request) {
+        Map<String,Object> modelMap = new HashMap<>();
+        Question question = (Question)request.getSession().getAttribute("question");
+        if (question == null) {
+            modelMap.put("success", false);
+            modelMap.put("errMsg", "could not find the question to be edited");
+            return modelMap;
+        }
+        modelMap.put("question", question);
+        modelMap.put("success", true);
+        return modelMap;
+    }
+
+    @RequestMapping(value = "/handleEditQuetion", method = RequestMethod.POST)
+    @ResponseBody
+    private Map<String,Object> handleEditQuetion(@RequestBody String param, HttpServletRequest request) {
+        Map<String,Object>modelMap = new HashMap<>();
+        try {
+            JSONObject obj = new JSONObject(param);
+            System.out.println(obj);
+            Question question = new Question();
+            question.setQuestionId(obj.getInt("questionId"));
+            question.setQuestionType(QuestionType.getByName(obj.getString("questionType")));
+            question.setContent(obj.getString("content"));
+            if (question.getQuestionType() == QuestionType.Matric) {
+                return editMatric(obj, question);
+            } else {
+                return editQuetion(obj,question);
+            }
+        } catch (Exception e) {
+            modelMap.put("success", false);
+            modelMap.put("errMsg", e.getMessage());
+            return modelMap;
+        }
+    }
+    private Map<String,Object> editQuetion(JSONObject obj, Question question) {
+        Map<String, Object> modelMap = new HashMap<>();
+        try {
+            List<Choice> choiceList = new ArrayList<>();
+            JSONArray arr = obj.getJSONArray("choices");
+            System.out.println(arr);
+            if (arr == null || arr.length() < 2 || arr.length() > 10) {
+                modelMap.put("success", false);
+                modelMap.put("errMsg", "not enough choice items to add");
+                return modelMap;
+            }
+            int rightAnswer = 0;
+            if (question.getQuestionType() != QuestionType.CheckBox && arr.length() > 4) {
+                modelMap.put("success", false);
+                modelMap.put("errMsg", "the number of choices is not valid");
+                return modelMap;
+            }
+            for (int i = 0; i < arr.length(); i++) {
+                String choice_content = arr.getJSONObject(i).getString("content");
+                String isAnswer = arr.getJSONObject(i).getString("isAnswer");
+                Choice choice = new Choice();
+                choice.setContent(choice_content);
+                if (isAnswer.equals("Yes")) {
+                    choice.setAnswer(true);
+                    rightAnswer++;
+                } else if (isAnswer.equals("No")) {
+                    choice.setAnswer(false);
+                } else {
+                    modelMap.put("success", false);
+                    modelMap.put("errMsg", "undefined answer type");
+                    return modelMap;
+                }
+                choiceList.add(choice);
+            }
+            if (rightAnswer > 1) {
+                modelMap.put("success", false);
+                modelMap.put("errMsg", "too many right answers");
+                return modelMap;
+            }
+            if (rightAnswer > 0 && question.getQuestionType() != QuestionType.Trivial) {
+                modelMap.put("success", false);
+                modelMap.put("errMsg", "Only trivia question can add right answer");
+                return modelMap;
+            }
+            if (question.getQuestionType() == QuestionType.Trivial && rightAnswer == 0) {
+                modelMap.put("success", false);
+                modelMap.put("errMsg", "trivia question must have one right answer");
+                return modelMap;
+            }
+            System.out.println(choiceList);
+            try {
+                question.setChoices(choiceList);
+                System.out.println(question);
+                System.out.println("start updating");
+                questionService.updateQuetion(question);
+                System.out.println("finish updating");
+            } catch (Exception e) {
+                modelMap.put("success", false);
+                modelMap.put("errMsg", e.getMessage());
+                return modelMap;
+            }
+        } catch (Exception e) {
+            modelMap.put("success", false);
+            modelMap.put("errMsg", e.getMessage());
+            return modelMap;
+        }
+        modelMap.put("success", true);
+        return modelMap;
+    }
+    private Map<String,Object> editMatric(JSONObject obj, Question question) {
+        Map<String,Object>modelMap = new HashMap<>();
+        try{
+            List<MatricItem>matricItemList = new ArrayList<>();
+            JSONArray arr = obj.getJSONArray("maricItemList");
+            for (int i = 0; i  < arr.length(); i++) {
+                JSONObject jsonObject = arr.getJSONObject(i);
+                String itemContent = jsonObject.getString("content");
+                if (itemContent == null || itemContent.trim().length() == 0) {
+                    System.out.println("item conetent is null");
+                    modelMap.put("success", false);
+                    modelMap.put("errMsg", "matric item could not be empty");
+                    return modelMap;
+                }
+                MatricItem matricItem = new MatricItem(itemContent);
+                JSONArray curArr = null;
+                try {
+                    curArr = jsonObject.getJSONArray("defaultChoices");
+                } catch (Exception e){
+                    matricItemList.add(matricItem);
+                    continue;
+                }
+                List<String>defaultChoices = new ArrayList<>();
+                for (int j = 0; j < curArr.length(); j++) {
+                    defaultChoices.add(curArr.getString(j));
+                }
+                matricItem.setDefaultChoices(defaultChoices);
+                matricItemList.add(matricItem);
+            }
+            question.setMatricItems(matricItemList);
+            questionService.updateQuetion(question);
+        } catch (Exception e) {
+            e.printStackTrace();
             modelMap.put("success", false);
             modelMap.put("errMsg", e.getMessage());
             return modelMap;

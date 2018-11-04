@@ -28,6 +28,45 @@ $(function(){
     $('#matric_btn').click(function(){
         getMatric();
     })
+
+    $(document).on("click", ".delete", function(){
+            var questionId = $(this).attr('questionId');
+            var r = confirm("Are you sure to delete this question?");
+            if (r == true) {
+                var data = {}
+                data.questionId = questionId;
+                $.ajax({
+                    type:"POST",
+                    url: "/deleteQuestion",
+                    data: JSON.stringify(data),
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function(data) {
+                        if (data.success) {
+                            alert("successfully remove the question");
+                        } else {
+                            alert(data.errMsg);
+                        }
+                    }
+                });
+            }
+    })
+
+    $(document).on("click", ".edit", function(){
+        var questionId = $(this).attr('questionId');
+        $.ajax({
+            url:"/editQuestion?questionId=" + questionId,
+            type:"GET",
+            dataType:"json",
+            success: function(data){
+                if (data.success) {
+                    window.location.href='/toEditQuestion';
+                } else {
+                    alert(data.errMsg);
+                }
+            }
+        })
+    })
     function getTrivia(){
         var rows = $('#table_body');
         rows.html('');
@@ -53,8 +92,8 @@ $(function(){
                             }
                          }
                         tempHtml += '</td><td>'
-                            + '<a href="editQuestion?id=' + question.questionId + '">Edit</a></td>' +
-                            '<td><a href="deleteQuestion?id=' + question.questionId + '">Delete</a></td></tr>';
+                            + '<button type="button"  class="edit" questionId="'+question.questionId+'">Edit</button></td>' +
+                            '<td><button type="button"  class="delete" questionId="'+question.questionId+'">Delete</button></td></tr>';
                         html += tempHtml;
                     }
                     rows.html(html);
@@ -90,8 +129,8 @@ $(function(){
                             }
                         }
                         tempHtml += '</td><td>'
-                            + '<a href="editQuestion?id=' + question.questionId + '">Edit</a></td>' +
-                            '<td><a href="deleteQuestion?id=' + question.questionId + '">Delete</a></td></tr>';
+                            + '<button type="button" class="edit" questionId="'+question.questionId+'">Edit</button></td>'+
+                            '<td><button type="button" class="delete" questionId="'+question.questionId+'">Delete</button></td></tr>';
                         html += tempHtml;
                     }
                     rows.html(html);
@@ -127,8 +166,8 @@ $(function(){
                             }
                         }
                         tempHtml += '</td><td>'
-                            + '<a href="editQuestion?id=' + question.questionId + '">Edit</a></td>' +
-                            '<td><a href="deleteQuestion?id=' + question.questionId + '">Delete</a></td></tr>';
+                            + '<button type="button" class="edit" questionId="'+question.questionId+'">Edit</button></td>' +
+                            '<td><button type="button" class="delete" questionId="'+question.questionId+'">Delete</button></td></tr>';
                         html += tempHtml;
                     }
                     rows.html(html);
@@ -163,8 +202,8 @@ $(function(){
                             }
                         }
                         tempHtml += '</td><td>'
-                            + '<a href="editQuestion?id=' + question.questionId + '">Edit</a></td>' +
-                            '<td><a href="deleteQuestion?id=' + question.questionId + '">Delete</a></td></tr>';
+                            + '<button type="button" class="edit" questionId="'+question.questionId+'">Edit</button></td>' +
+                            '<td><button type="button" class="delete" questionId="'+question.questionId+'">Delete</button></td></tr>';
                         html += tempHtml;
                     }
                     rows.html(html);

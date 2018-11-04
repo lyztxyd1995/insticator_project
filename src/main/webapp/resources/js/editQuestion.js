@@ -1,20 +1,60 @@
 $(function(){
     var CHARACTER = ['A','B','C','D','E','F','G','H','I','J']
-    //curTpye is used to record the state, could be trivia, poll, checkbox or matric
-    var curType = 'trivia';
-    var choiceNum = 2;
-    var firstItemNum = 2;
-    var secondItemNum = 2;
-    refreshQuestionItems();
-    $(document).on("click", "#remove_choice", function(){
-        if (choiceNum <= 2) {
-            alert("The number of choices should be at least 2");
-            return;
+    var question = {};
+    var choiceNum = 0;
+    var curType = '';
+    var firstItemNum = 0;
+    var secondItemNum = 0;
+    function getQuestion() {
+        var url = '/getQuestion';
+        $.ajax({
+            url:url,
+            type:"GET",
+            success:function(data){
+                if(data.success){
+                    question = data.question;
+                    console.log(question);
+                    curType = question.questionType.toLowerCase();
+                    if (curType === "trivial") {
+                        curType = "trivia";
+                    }
+                    $('#type').val(curType);
+                    $('#content').val(question.content);
+                    if (curType === 'matric') {
+                        refreshMatric();
+                    } else {
+                        refreshQuestionItems();
+                    }
+                } else {
+                    alert(data.errMsg);
+                    window.location.href = '/manageQuestions';
+                }
+            }
+        })
+    }
+    getQuestion();
+    function refreshQuestionItems(){
+        var question_items = $('#question_items');
+        var html = '<div class="form-group">' +
+            '<button class="btn btn-success" id="add_choice" type=\'button\'>Add choice item</button> &nbsp;&nbsp;&nbsp;' +
+            '<button class="btn btn-danger" id="remove_choice" type=\'button\'>Remove choice item</button></div><ul id="choice_list" class="form-group">';
+        for (var i = 0; i < question.choices.length; i++) {
+            choiceNum += 1;
+            html += '<li class="choice_item">' +
+                '<div class="form-group">' +
+                '<label for="choice'+ choiceNum + '">Choice '+ CHARACTER[choiceNum - 1] + '</label>' +
+                '<input type="text" class="form-control" id="choice'+ choiceNum +'" value="'+question.choices[i].content +'">';
+            html += '<label for="isAnswer' + choiceNum +'">Is Answer</label>&nbsp;<select id="isAnswer'+choiceNum +'">';
+            if (question.choices[i].answer) {
+                html += '<option selected="selected">Yes</option><option>No</option> </select></div></li>';
+            } else {
+                html += '<option>Yes</option><option selected="selected">No</option> </select></div></li>';
+            }
         }
-        var id = '#choice' + choiceNum;
-        $(id).closest("li").remove();
-        choiceNum -= 1;
-    })
+        html += '</ul>';
+        question_items.append(html);
+    }
+
     $(document).on("click", "#add_choice", function(){
         var choice_list = $('#choice_list');
         if (curType === 'checkbox') {
@@ -39,6 +79,58 @@ $(function(){
         var choice_list = $('#choice_list');
         choice_list.append(html);
     })
+    function refreshMatric(){
+        var question_items = $('#question_items');
+        var matricItems = question.matricItems;
+        var html = '<div class="form-group">' +
+            '                <label for="matric_item1">Matric Item one (with default items)</label>' +
+            '                <input type="text" class="form-control" id="matric_item1" value="'+matricItems[0].itemName+'">' +
+            '                <div class="form-group">' +
+            '                    <button type="button" class="btn btn-success" id="first_item_add">Add default items</button>' +
+            '                    <button type="button" class="btn btn-danger" id="first_item_remove">remove default items</button>' +
+            '                </div>' +
+            '                <ul id="matric_item1_ul">';
+        var tempHtml = '';
+        for (var i = 0; i < matricItems[0].defaultChoices.length; i++) {
+            firstItemNum += 1;
+            tempHtml += '<li><label for="first_item'+ firstItemNum + '">Item '+CHARACTER[firstItemNum - 1]+'</label>'
+                + '<input type="text" class="form-control" id="first_item'+firstItemNum+'" value="'+matricItems[0].defaultChoices[i]+'"></li>';
+        }
+        html += tempHtml;
+        html += '</ul> </div>';
+        html += '            <div class="form-group">' +
+            '                <label for="matric_item2">Matric Item two (with default choices)</label>' +
+            '                <input type="text" class="form-control" id="matric_item2" value="'+matricItems[1].itemName+'">' +
+            '                <div class="form-group">' +
+            '                    <button type="button" class="btn btn-success" id="second_item_add">Add default choices</button>' +
+            '                    <button type="button" class="btn btn-danger" id="second_item_remove">remove default choices</button>' +
+            '                </div>' +
+            '                <ul id="matric_item2_ul">';
+        tempHtml = '';
+        for (var i = 0; i < matricItems[1].defaultChoices.length; i++) {
+            secondItemNum += 1;
+            tempHtml += '<li><label for="second_item'+ secondItemNum + '">Item '+CHARACTER[secondItemNum - 1]+'</label>'
+                + '<input type="text" class="form-control" id="second_item'+secondItemNum+'" value="'+matricItems[1].defaultChoices[i]+'"></li>';
+        }
+        html += tempHtml;
+        html += '</ul> </div>';
+        html += '<div class="form-group">' +
+            '<label for="matric_item3">Matric Item three (No default choices, let users fill in)</label>' +
+            '<input type="text" class="form-control" id="matric_item3" value="'+matricItems[2].itemName+'">' +
+            '</div>'
+        question_items.append(html);
+    }
+
+    $(document).on("click", "#remove_choice", function(){
+        if (choiceNum <= 2) {
+            alert("The number of choices should be at least 2");
+            return;
+        }
+        var id = '#choice' + choiceNum;
+        $(id).closest("li").remove();
+        choiceNum -= 1;
+    })
+
     $(document).on("click", '#first_item_add', function(){
         if (firstItemNum >= 10) {
             alert('number of default items could not be larger than 10');
@@ -80,14 +172,19 @@ $(function(){
         $(id).closest("li").remove();
         secondItemNum -= 1;
     })
+
+    $(document).on("click", "#back_btn", function(){
+        window.location.href = '/manageQuestions';
+    })
+
     $(document).on("click", '#save_btn', function(){
         if (curType === 'matric') {
-            addMaricQuestion();
+            editMaricQuestion();
         } else {
-            addNormalQuestion();
+            editNormalQuestion();
         }
     })
-    function addNormalQuestion(){
+    function editNormalQuestion(){
         var content = $('#content').val();
         var choiceList = []
         for (var i = 1; i <= choiceNum; i++) {
@@ -109,18 +206,19 @@ $(function(){
             return;
         }
         var data = {}
+        data.questionId = question.questionId;
         data.content = content;
         data.choices = choiceList;
         data.questionType = curType;
         $.ajax({
             type:"POST",
-            url: "/handleAddQuestion",
+            url: "/handleEditQuetion",
             data: JSON.stringify(data),
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function(data) {
                 if (data.success) {
-                    alert("Add a new question successfully");
+                    alert("finish editing");
                     window.location.href = '/manageQuestions';
                 } else {
                     alert(data.errMsg);
@@ -128,7 +226,7 @@ $(function(){
             }
         });
     }
-    function addMaricQuestion(){
+    function editMaricQuestion(){
         var content = $('#content').val();
         if (content === '') {
             alert("question content could not be empty");
@@ -179,110 +277,26 @@ $(function(){
         maricItemList.push(matricItem3);
 
         var data = {}
+        data.questionId = question.questionId;
         data.maricItemList = maricItemList;
         data.content = content;
         data.questionType = curType;
         console.log(data);
         $.ajax({
             type:"POST",
-            url: "/handleAddQuestion",
+            url: "/handleEditQuetion",
             data: JSON.stringify(data),
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function(data) {
                 if (data.success) {
-                    alert("Add a new question successfully");
+                    alert("finish editing");
                     window.location.href = '/manageQuestions';
                 } else {
+                    alert("error");
                     alert(data.errMsg);
                 }
             }
         });
     }
-    function refreshQuestionItems(){
-        var question_items = $('#question_items');
-        question_items.html('<div class="form-group">' +
-            '                <button class="btn btn-success" id="add_choice" type=\'button\'>Add choice item</button> &nbsp;&nbsp;&nbsp;' +
-            '                <button class="btn btn-danger" id="remove_choice" type=\'button\'>Remove choice item</button>' +
-            '            </div>' +
-            '            <ul id="choice_list" class="form-group">' +
-            '                <li class="choice_item">' +
-            '                    <div class="form-group">' +
-            '                        <label for="choice1">Choice A</label>' +
-            '                        <input type="text" class="form-control" id="choice1">' +
-            '                        <label for="isAnswer1">Is Answer</label>&nbsp;' +
-            '                        <select id="isAnswer1">' +
-            '                            <option>Yes</option>' +
-            '                            <option selected="selected">No</option>' +
-            '                        </select>' +
-            '                    </div>' +
-            '                </li>' +
-            '                <li class="choice_item">' +
-            '                    <div class="form-group">' +
-            '                        <label for="choice2">Choice B</label>' +
-            '                        <input type="text" class="form-control" id="choice2">' +
-            '                        <label for="isAnswer2">Is Answer</label>' +
-            '                        <select id="isAnswer2">' +
-            '                            <option>Yes</option>' +
-            '                            <option selected="selected">No</option>' +
-            '                        </select>' +
-            '                    </div>' +
-            '                </li>' +
-            '</ul>')
-        choiceNum = 2;
-    }
-
-    function refreshMatric(){
-        var question_items = $('#question_items');
-        question_items.html('<div class="form-group">' +
-            '                <label for="matric_item1">Matric Item one (with default items)</label>' +
-            '                <input type="text" class="form-control" id="matric_item1">' +
-            '                <div class="form-group">' +
-            '                    <button type="button" class="btn btn-success" id="first_item_add">Add default items</button>' +
-            '                    <button type="button" class="btn btn-danger" id="first_item_remove">remove default items</button>' +
-            '                </div>' +
-            '                <ul id="matric_item1_ul">' +
-            '                    <li>' +
-            '                        <label for="first_item1">Item A</label>' +
-            '                        <input type="text" class="form-control" id="first_item1">' +
-            '                    </li>' +
-            '                    <li>' +
-            '                        <label for="first_item2">Item B</label>' +
-            '                        <input type="text" class="form-control" id="first_item2">' +
-            '                    </li>' +
-            '                </ul>' +
-            '            </div>' +
-            '            <div class="form-group">' +
-            '                <label for="matric_item2">Matric Item two (with default choices)</label>' +
-            '                <input type="text" class="form-control" id="matric_item2">' +
-            '                <div class="form-group">' +
-            '                    <button type="button" class="btn btn-success" id="second_item_add">Add default choices</button>' +
-            '                    <button type="button" class="btn btn-danger" id="second_item_remove">remove default choices</button>' +
-            '                </div>' +
-            '                <ul id="matric_item2_ul">' +
-            '                    <li>' +
-            '                        <label for="second_item1">Item A</label>' +
-            '                        <input type="text" class="form-control" id="second_item1">' +
-            '                    </li>' +
-            '                    <li>' +
-            '                        <label for="second_item2">Item B</label>' +
-            '                        <input type="text" class="form-control" id="second_item2">' +
-            '                    </li>' +
-            '                </ul>' +
-            '            </div>' +
-            '            <div class="form-group">\n' +
-            '                <label for="matric_item3">Matric Item three (No default choices, let users fill in)</label>' +
-            '                <input type="text" class="form-control" id="matric_item3">' +
-            '            </div>');
-            firstItemNum = 2;
-            secondItemNum = 2;
-    }
-    $('#type').change(function(){
-        curType = $('#type :selected').text();
-        if (curType !== 'matric') {
-            refreshQuestionItems();
-        } else {
-            refreshMatric();
-        }
-    })
 })
