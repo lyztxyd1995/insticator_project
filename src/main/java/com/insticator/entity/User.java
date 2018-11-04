@@ -10,6 +10,10 @@ public class User {
         this.password = password;
         this.points = 0;
     }
+    public User(String username, String password, Integer points) {
+        this(username,password);
+        this.points = points;
+    }
     public String getUsername() {
         return username;
     }

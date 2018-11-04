@@ -1,4 +1,18 @@
 $(function(){
+    function getAdmin() {
+        var url = '/getAdmin';
+        $.ajax({
+            url:url,
+            type:"get",
+            success:function(data){
+                if(!data.success){
+                    alert("No administrator info");
+                    window.location.href = '/admin';
+                }
+            }
+        })
+    }
+    getAdmin();
     var CHARACTER = ['A','B','C','D','E','F','G','H','I','J']
     //curTpye is used to record the state, could be trivia, poll, checkbox or matric
     var curType = 'trivia';

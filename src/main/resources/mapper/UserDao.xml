@@ -25,5 +25,12 @@
         username = #{username}
     </select>
 
+    <update id="updatePoints">
+        UPDATE
+        users
+        SET
+        points = #{points}
+        WHERE username = #{username}
+    </update>
 
 </mapper>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.insticator.dao.UserRecordDao">
+   <insert id="insert">
+       INSERT INTO
+       user_record
+       (username, question_id)
+       VALUES
+       (#{username}, #{questionId})
+   </insert>
+    <select id="getQuestionIdByUser" resultType="java.lang.Integer">
+        SELECT question_id FROM
+        user_record
+        WHERE
+        username = #{username}
+    </select>
+</mapper>

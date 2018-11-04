@@ -7,4 +7,5 @@ public interface UserDao {
     int insertUser(User user);
     int deleteUser(String username);
     User getUserByUsername(@Param("username") String username);
+    int updatePoints(@Param("username") String username, @Param("points") int points);
 }

@@ -13,7 +13,7 @@ $(function(){
             }
         })
     }
-    //getAdmin();
+    getAdmin();
     getTrivia();
 
     $('#trivia_btn').click(function(){

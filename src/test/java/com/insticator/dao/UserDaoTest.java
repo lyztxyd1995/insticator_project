@@ -31,4 +31,10 @@ public class UserDaoTest extends BaseTest {
         User user = userDao.getUserByUsername("1111");
         System.out.println(user);
     }
+
+    @Test
+    public void testUpdate(){
+        int res = userDao.updatePoints("yizeliu", 5);
+        assertEquals(res, 1);
+    }
 }
