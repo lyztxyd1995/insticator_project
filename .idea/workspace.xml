@@ -8,20 +8,6 @@
   <component name="ChangeListManager">
     <list default="true" id="e8948cd6-ae35-43c2-9f98-c1259b458ba4" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/html/addQuestion.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/html/addQuestion.html" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/html/adminLogin.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/html/adminLogin.html" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/html/editQuestion.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/html/editQuestion.html" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/html/index.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/html/index.html" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/html/manageQuestions.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/html/manageQuestions.html" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/html/userLogin.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/html/userLogin.html" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/html/userRegister.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/html/userRegister.html" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/resources/js/addQuestion.js" afterPath="$PROJECT_DIR$/src/main/webapp/resources/js/addQuestion.js" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/resources/js/adminLogin.js" afterPath="$PROJECT_DIR$/src/main/webapp/resources/js/adminLogin.js" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/resources/js/editQuestion.js" afterPath="$PROJECT_DIR$/src/main/webapp/resources/js/editQuestion.js" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/resources/js/index.js" afterPath="$PROJECT_DIR$/src/main/webapp/resources/js/index.js" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/resources/js/manageQuestions.js" afterPath="$PROJECT_DIR$/src/main/webapp/resources/js/manageQuestions.js" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/resources/js/userLogin.js" afterPath="$PROJECT_DIR$/src/main/webapp/resources/js/userLogin.js" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/resources/js/userRegister.js" afterPath="$PROJECT_DIR$/src/main/webapp/resources/js/userRegister.js" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -863,7 +849,7 @@
       <workItem from="1541123735254" duration="35193000" />
       <workItem from="1541261580602" duration="31908000" />
       <workItem from="1541318057368" duration="1278000" />
-      <workItem from="1541324331633" duration="8000" />
+      <workItem from="1541324331633" duration="41000" />
     </task>
     <task id="LOCAL-00001" summary="add new changes">
       <created>1541095400603</created>
@@ -914,7 +900,14 @@
       <option name="project" value="LOCAL" />
       <updated>1541317411576</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="final version, deploy to AWS">
+      <created>1541324364013</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1541324364013</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -950,7 +943,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="113294000" />
+    <option name="totallyTimeSpent" value="113327000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1042,7 +1035,8 @@
     <MESSAGE value="add GUI and implementing selecting questions function and adding questions functions" />
     <MESSAGE value=" finish the backend system for administrator to add, remove, update and query all kinds of questions (trivia, checkbox, poll, matric)." />
     <MESSAGE value="finish frontend page for user to answer questions, add user record table to record all the questions the user have asked." />
-    <option name="LAST_COMMIT_MESSAGE" value="finish frontend page for user to answer questions, add user record table to record all the questions the user have asked." />
+    <MESSAGE value="final version, deploy to AWS" />
+    <option name="LAST_COMMIT_MESSAGE" value="final version, deploy to AWS" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1236,6 +1230,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="87">
           <caret line="6" column="96" lean-forward="true" selection-start-line="6" selection-start-column="96" selection-end-line="6" selection-end-column="96" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1310,6 +1305,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="166">
           <caret line="12" column="19" lean-forward="true" selection-start-line="12" selection-start-column="19" selection-end-line="12" selection-end-column="19" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1317,6 +1313,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="324">
           <caret line="32" column="46" lean-forward="false" selection-start-line="32" selection-start-column="40" selection-end-line="32" selection-end-column="46" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1409,6 +1406,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="75">
           <caret line="5" column="29" lean-forward="false" selection-start-line="5" selection-start-column="29" selection-end-line="5" selection-end-column="29" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1416,6 +1414,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-2386">
           <caret line="2" column="15" lean-forward="false" selection-start-line="2" selection-start-column="12" selection-end-line="2" selection-end-column="15" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1423,6 +1422,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="120">
           <caret line="8" column="15" lean-forward="false" selection-start-line="8" selection-start-column="12" selection-end-line="8" selection-end-column="15" />
+          <folding />
         </state>
       </provider>
     </entry>
