@@ -10,3 +10,5 @@ As an administrator, you could add, edit, delete and see all questions in our sy
 The ip address for users' questionnaire is: <br>
 http://18.223.109.7:8080/insticator/userLogin<br>
 As a user, you could register an account and log in to ask questions. If you got the right answer, you will get 5 points. For objective questions, you will also get 5 points when you answer it. I have included several questions in the current system, major of which are about NBA since I am a basketball fans. Due to the time limit, I didn't polish the pag too much so it may look a little bit simple. However, it is just used for demo the function and maybe later I will polish it to make it looks better. Feel free to register an account and enjoy it ! ! !
+
+BTW: I've included the design doc in the pdf file, which introduces the design of this project and some later improvements that could be made in the future. 
